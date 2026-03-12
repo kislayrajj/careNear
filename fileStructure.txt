@@ -1,0 +1,45 @@
+carenear-frontend/
+├─ index.html
+├─ package.json
+├─ vite.config.ts
+├─ tailwind.config.js
+├─ postcss.config.js
+├─ src/
+│  ├─ main.tsx
+│  ├─ App.tsx
+│  ├─ styles/
+│  │  └─ globals.css        # Tailwind base + global styles
+│  ├─ routes/
+│  │  └─ router.tsx         # React Router setup
+│  ├─ pages/
+│  │  ├─ public/
+│  │  │  ├─ Landing.tsx
+│  │  │  ├─ Doctors.tsx
+│  │  │  ├─ DoctorProfile.tsx
+│  │  │  ├─ Pharmacies.tsx
+│  │  │  └─ PharmacyProfile.tsx
+│  │  ├─ doctor/
+│  │  │  └─ Login.tsx
+│  │  └─ pharmacy/
+│  │     └─ Login.tsx
+│  ├─ components/
+│  │  ├─ layout/
+│  │  │  ├─ Header.tsx
+│  │  │  └─ Footer.tsx
+│  │  ├─ ui/
+│  │  │  ├─ Button.tsx
+│  │  │  ├─ Input.tsx
+│  │  │  └─ Card.tsx
+│  │  └─ common/
+│  │     └─ ThemeToggle.tsx
+│  ├─ api/
+│  │  └─ index.ts           # mock APIs now, real APIs later
+│  ├─ mocks/
+│  │  └─ data.ts            # mock data shaped like real API responses
+│  ├─ types/
+│  │  └─ index.ts           # TypeScript types (Doctor, Pharmacy, etc.)
+│  ├─ hooks/
+│  │  └─ useLocation.ts     # location logic later
+│  └─ assets/
+│     └─ logo.svg
+└─ .env

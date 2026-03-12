@@ -1,0 +1,41 @@
+.nav_bg{
+background: conic-gradient(#f8f4f8, #fff1f2, #92f0f3);
+}
+
+.landing_bg{
+ background-color: #f8fbff; 
+  
+  margin: 0;
+  min-height: 100vh;
+  /* Soft off-white base color */
+  background-color: #f8fbff; 
+  
+  /* Layering multiple radial gradients to create the "glow" effect */
+  background-image: 
+    radial-gradient(circle at 15% 30%, rgba(61, 172, 209, 0.4) 0%, transparent 40%), 
+    radial-gradient(circle at 85% 60%, rgba(194, 97, 194, 0.3) 0%, transparent 45%),
+    radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.8) 0%, transparent 50%);
+    
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+.doctor_icon_bg{
+background-image: linear-gradient(to right top, #7449b7, #3972d9, #0094e8, #00b1e9, #00cae2, #2fd4dc, #50ddd4, #6ee5cb, #5fe3bd, #53e0ae, #4cdd9c, #4ada89);
+}
+
+.location_icon_bg{
+  background-image: linear-gradient(to right top, #6bd1a9, #61d5a3, #57d89b, #4fdb93, #49de89, #42e290, #39e597, #2ee99e, #27eeb6, #31f3cd, #46f7e0, #5ffbf1);
+}
+
+.trend_icon_bg{
+  background-image: linear-gradient(to right top, #ae3ac0, #b83cc3, #c13dc5, #cb3fc8, #d441ca, #db44cb, #e147cc, #e84acd, #ed4fcd, #f254cc, #f75acc, #fb5fcc);
+}
+
+.button_1{
+  background-image: linear-gradient(to right top, #2feea3, #00e6c0, #00dcd7, #00d0e4, #00c3e7, #1cc3e8, #2ac4ea, #35c4eb, #31d2f0, #38e0f2, #49eef2, #5ffbf1);
+}
+
+.button_2{
+background-image: linear-gradient(to right top, #50c255, #4ec853, #4ccd51, #4ad34f, #47d94d, #51dd56, #5ae05e, #63e466, #77e679, #89e78b, #9ae89c, #aae9ad);
+}
