@@ -19,7 +19,11 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-lg bg-white/80 border-b border-slate-100 shadow-sm">
+    <nav className="relative fixed top-0 left-0 w-full z-50 backdrop-blur-lg bg-white/80 border-b border-slate-100 shadow-sm overflow-visible">
+
+      {/* 🔥 FIXED AI GRADIENT (no overflow bug) */}
+      <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-tr from-cyan-400 via-blue-400 to-purple-400 rounded-full blur-3xl opacity-20 pointer-events-none translate-x-[-30%] translate-y-[-30%]"></div>
+
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 
         {/* Logo */}
@@ -27,20 +31,19 @@ const Navbar = () => {
           💙 CareNear
         </Link>
 
-        {/* CENTER */}
+        {/* CENTER (DESKTOP) */}
         <div className="hidden md:flex items-center gap-2 flex-1 justify-center">
 
-          {/* PUBLIC */}
           {!user && (
             <>
               <NavItem to="/doctors" label="Find Doctors" active={isActive("/doctors")} />
               <NavItem to="/pharmacies" label="Pharmacies" active={isActive("/pharmacies")} />
               <NavItem to="/services" label="Services" active={isActive("/services")} />
               <NavItem to="/about" label="About" active={isActive("/about")} />
+              <NavItem to="/ai-assistant" label="CareAI" active={isActive("/ai-assistant")} />
             </>
           )}
 
-          {/* DOCTOR */}
           {user?.role === "doctor" && (
             <>
               <NavItem to="/doctor" label="Home" active={isActive("/doctor")} />
@@ -48,7 +51,6 @@ const Navbar = () => {
             </>
           )}
 
-          {/* PHARMACY */}
           {user?.role === "pharmacy" && (
             <>
               <NavItem to="/pharmacy" label="Home" active={isActive("/pharmacy")} />
@@ -85,50 +87,75 @@ const Navbar = () => {
           )}
 
           {/* Mobile toggle */}
-          <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
+          <button className="md:hidden text-xl" onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? "✖" : "☰"}
           </button>
         </div>
       </div>
 
-      {/* MOBILE */}
+      {/* 🔥 FLOATING GLASS MOBILE MENU */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="md:hidden bg-white px-6 py-4 flex flex-col gap-3"
-          >
-            {!user && (
-              <>
-                <Link to="/doctors">Doctors</Link>
-                <Link to="/pharmacies">Pharmacies</Link>
-                <Link to="/services">Services</Link>
-                <Link to="/about">About</Link>
-              </>
-            )}
+          <>
+            {/* 🔥 backdrop blur overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/10 backdrop-blur-sm z-40"
+              onClick={() => setMenuOpen(false)}
+            />
 
-            {user?.role === "doctor" && (
-              <>
-                <Link to="/doctor">Home</Link>
-                <Link to="/doctor/prescriptions">Prescriptions</Link>
-              </>
-            )}
+            {/* 🔥 floating menu */}
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="
+                md:hidden 
+                fixed top-20 left-4 right-4 
+                z-50
+                rounded-2xl
+                backdrop-blur-xl bg-white/70
+                border border-white/40
+                shadow-2xl
+                p-5 flex flex-col gap-3
+              "
+            >
 
-            {user?.role === "pharmacy" && (
-              <>
-                <Link to="/pharmacy">Home</Link>
-                <Link to="/pharmacy/inventory">Inventory</Link>
-              </>
-            )}
+              {!user && (
+                <>
+                  <MobileItem to="/doctors" label="Doctors" />
+                  <MobileItem to="/pharmacies" label="Pharmacies" />
+                  <MobileItem to="/services" label="Services" />
+                  <MobileItem to="/about" label="About" />
+                  <MobileItem to="/ai-assistant" label="AI Assistant 🤖" highlight />
+                </>
+              )}
 
-            {user && (
-              <button onClick={handleLogout} className="text-red-500">
-                Logout
-              </button>
-            )}
-          </motion.div>
+              {user?.role === "doctor" && (
+                <>
+                  <MobileItem to="/doctor" label="Home" />
+                  <MobileItem to="/doctor/prescriptions" label="Prescriptions" />
+                </>
+              )}
+
+              {user?.role === "pharmacy" && (
+                <>
+                  <MobileItem to="/pharmacy" label="Home" />
+                  <MobileItem to="/pharmacy/inventory" label="Inventory" />
+                </>
+              )}
+
+              {user && (
+                <button onClick={handleLogout} className="text-red-500 text-left mt-2">
+                  Logout
+                </button>
+              )}
+
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>
@@ -143,6 +170,21 @@ const NavItem = ({ to, label, active }) => (
         ? "bg-cyan-50 text-cyan-700"
         : "text-slate-600 hover:bg-slate-100"
     }`}
+  >
+    {label}
+  </Link>
+);
+
+const MobileItem = ({ to, label, highlight }) => (
+  <Link
+    to={to}
+    className={`
+      px-3 py-2 rounded-lg text-sm transition
+      ${highlight
+        ? "bg-cyan-50 text-cyan-600 font-semibold"
+        : "text-slate-700 hover:bg-slate-100"
+      }
+    `}
   >
     {label}
   </Link>

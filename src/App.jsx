@@ -16,6 +16,8 @@ import DoctorPrescriptions from "./pages/doctor/DoctorPrescriptions";
 import PharmacyInventory from "./pages/pharmacy/PharmacyInventory";
 import About from "./pages/public/About";
 import Services from "./pages/public/Services";
+import AIAssistant from "./pages/public/AIAssistant";
+import FloatingAI from "./components/ai/FloatingAI";
 
 function App() {
   const { user } = useAuth();
@@ -23,6 +25,7 @@ function App() {
   return (
     <>
       <Navbar />
+      <FloatingAI />
 
       <main className="pt-16">
         <Routes>
@@ -51,6 +54,8 @@ function App() {
             path="/pharmacies"
             element={!user ? <Pharmacies /> : <Navigate to="/" />}
           />
+          <Route path="/ai-assistant" element={<AIAssistant />} />
+          
 
           {/* PUBLIC DETAIL (allowed for all) */}
           <Route path="/doctors/:id" element={<DoctorProfile />} />

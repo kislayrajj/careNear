@@ -23,95 +23,101 @@ const PharmacyCard = ({ pharmacy }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -4 }}
-      transition={{ duration: 0.3 }}
-      className="bg-white rounded-xl border border-slate-100 shadow-sm hover:shadow-md p-5 flex flex-col gap-4"
+      whileHover={{ y: -5, scale: 1.015 }}
+      className="
+        relative overflow-hidden
+        rounded-2xl
+        border border-white/30
+        bg-white/70 backdrop-blur-lg
+        shadow-[0_8px_30px_rgba(0,0,0,0.08)]
+        hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]
+        p-5 flex flex-col h-full
+        transition-all duration-300
+      "
     >
-      {/* Top */}
-      <div className="flex items-start gap-4">
-        
-        {/* Icon */}
-        <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-green-200 to-green-300 flex items-center justify-center text-green-700 font-bold">
-          {initials}
-        </div>
+      {/* glow */}
+      <div className="absolute inset-0 opacity-0 hover:opacity-100 bg-gradient-to-tr from-green-100/40 to-cyan-100/30 transition" />
 
-        {/* Info */}
-        <div className="flex-1 flex flex-col gap-1">
-          <h3 className="text-sm font-semibold text-slate-900">{name}</h3>
+      <div className="relative z-10 flex flex-col h-full">
 
-          <div className="text-xs text-slate-500 flex items-center gap-1">
-            📍 {address}
+        {/* TOP */}
+        <div className="flex items-start gap-3">
+
+          <div className="w-12 h-12 rounded-lg bg-gradient-to-tr from-green-400 to-cyan-400 flex items-center justify-center text-white font-semibold text-sm">
+            {initials}
           </div>
 
-          {phone && (
-            <div className="text-xs text-slate-500 flex items-center gap-1">
-              📞 {phone}
-            </div>
-          )}
-        </div>
+          <div className="flex-1 min-w-0">
+            <h3 className="text-sm font-semibold text-slate-900 truncate">
+              {name}
+            </h3>
 
-        {/* Status */}
-        <span
-          className={`text-xs px-2 py-1 rounded-full font-medium ${
-            open
-              ? "bg-green-100 text-green-600"
-              : "bg-red-100 text-red-500"
-          }`}
-        >
-          {open ? "Open" : "Closed"}
-        </span>
-      </div>
+            <p className="text-xs text-slate-500 truncate">
+              {address}
+            </p>
 
-      {/* Medicines */}
-      {totalCount > 0 && (
-        <div className="bg-slate-50 rounded-lg p-3 flex flex-col gap-2">
-          
-          <div className="flex justify-between items-center text-xs">
-            <span className="font-medium text-slate-600">
-              Medicine Availability
-            </span>
-            <span className="text-cyan-600 font-semibold">
-              {availableCount}/{totalCount} available
-            </span>
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            {medicines.slice(0, 4).map((m) => (
-              <div
-                key={m._id}
-                className="flex items-center gap-1 px-2 py-1 rounded-full bg-white border text-xs text-slate-600"
-              >
-                <span
-                  className={`w-2 h-2 rounded-full ${
-                    m.available ? "bg-green-500" : "bg-red-400"
-                  }`}
-                />
-                {m.name}
-              </div>
-            ))}
-
-            {totalCount > 4 && (
-              <div className="px-2 py-1 rounded-full bg-slate-100 text-xs text-slate-400">
-                +{totalCount - 4} more
-              </div>
+            {phone && (
+              <p className="text-xs text-slate-400">
+                {phone}
+              </p>
             )}
           </div>
+
+          <span className={`text-[10px] px-2 py-0.5 rounded-full ${
+            open ? "bg-green-100 text-green-700" : "bg-red-100 text-red-600"
+          }`}>
+            {open ? "Open" : "Closed"}
+          </span>
         </div>
-      )}
 
-      {/* Footer */}
-      <div className="flex justify-between items-center">
-        <span className="text-xs text-slate-400">
-          Updated recently
-        </span>
+        {/* MEDICINES */}
+        {totalCount > 0 && (
+          <div className="mt-4">
+            <div className="flex justify-between text-xs mb-2">
+              <span className="text-slate-500">Medicines</span>
+              <span className="text-cyan-600 font-medium">
+                {availableCount}/{totalCount}
+              </span>
+            </div>
 
-        <Link to={`/pharmacies/${_id}`}>
-          <button className="px-4 py-2 rounded-lg border border-cyan-200 text-cyan-600 text-sm font-medium hover:bg-cyan-50 transition">
-            View
-          </button>
-        </Link>
+            <div className="flex flex-wrap gap-2">
+              {medicines.slice(0, 3).map((m) => (
+                <span
+                  key={m._id}
+                  className="text-[11px] px-2 py-1 rounded-full bg-white/80 border text-slate-600"
+                >
+                  {m.name}
+                </span>
+              ))}
+
+              {totalCount > 3 && (
+                <span className="text-[11px] px-2 py-1 bg-slate-100 rounded-full text-slate-400">
+                  +{totalCount - 3}
+                </span>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* FOOTER */}
+        <div className="mt-auto pt-4 flex justify-between items-center">
+
+          <span className="text-[10px] text-slate-400">
+            Updated recently
+          </span>
+
+          <Link to={`/pharmacies/${_id}`}>
+            <button className="
+              px-3 py-1.5 text-sm rounded-lg
+              bg-gradient-to-r from-cyan-500 to-blue-500
+              text-white
+              hover:opacity-90 transition
+            ">
+              View
+            </button>
+          </Link>
+
+        </div>
       </div>
     </motion.div>
   );
