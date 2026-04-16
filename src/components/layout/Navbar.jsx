@@ -41,6 +41,7 @@ const Navbar = () => {
               <NavItem to="/services" label="Services" active={isActive("/services")} />
               <NavItem to="/about" label="About" active={isActive("/about")} />
               <NavItem to="/ai-assistant" label="CareAI" active={isActive("/ai-assistant")} />
+              <NavItem to="/dashboard" label="Dashboard" active={isActive("/dashboard")} />
             </>
           )}
 
@@ -131,6 +132,7 @@ const Navbar = () => {
                   <MobileItem to="/services" label="Services" />
                   <MobileItem to="/about" label="About" />
                   <MobileItem to="/ai-assistant" label="AI Assistant 🤖" highlight />
+                  <MobileItem to="/dashboard" label="Dashboard 📊" />
                 </>
               )}
 

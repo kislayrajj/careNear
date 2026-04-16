@@ -17,6 +17,7 @@ import PharmacyInventory from "./pages/pharmacy/PharmacyInventory";
 import About from "./pages/public/About";
 import Services from "./pages/public/Services";
 import AIAssistant from "./pages/public/AIAssistant";
+import Dashboard from "./pages/admin/Dashboard";
 import FloatingAI from "./components/ai/FloatingAI";
 
 function App() {
@@ -66,6 +67,7 @@ function App() {
           <Route path="/prescription" element={<Prescription />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/dashboard" element={<Dashboard />} />
 
           {/* 👨‍⚕️ DOCTOR */}
           <Route

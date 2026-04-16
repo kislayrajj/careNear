@@ -94,3 +94,10 @@ export const authApi = {
   updateProfile: (body) =>
     api.put(`/auth/profile`, body),
 };
+
+export const analyticsApi = {
+  getOverview: () => api.get(`/analytics/overview`),
+  getDoctors: () => api.get(`/analytics/doctors`),
+  getPharmacies: () => api.get(`/analytics/pharmacies`),
+  getInsights: () => api.get(`/analytics/insights`),
+};
