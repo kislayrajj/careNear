@@ -20,15 +20,17 @@ const KPICard = ({ title, value, icon, color, delay, subtext }) => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay }}
-    className="bg-white/70 backdrop-blur-md border border-white/50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]"
-  >
+    className="bg-white/70 backdrop-blur-md border border-white/50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]">
     <div className="flex items-center justify-between">
       <div>
         <p className="text-sm text-slate-500 font-medium">{title}</p>
-        <p className="text-3xl font-bold text-slate-800 mt-1">{value ?? "--"}</p>
+        <p className="text-3xl font-bold text-slate-800 mt-1">
+          {value ?? "--"}
+        </p>
         {subtext && <p className="text-xs text-slate-400 mt-1">{subtext}</p>}
       </div>
-      <div className={`w-14 h-14 rounded-xl flex items-center justify-center ${color}`}>
+      <div
+        className={`w-14 h-14 rounded-xl flex items-center justify-center ${color}`}>
         <span className="text-2xl">{icon}</span>
       </div>
     </div>
@@ -52,9 +54,10 @@ const GlassCard = ({ title, children, delay = 0 }) => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay }}
-    className="bg-white/70 backdrop-blur-md border border-white/50 rounded-2xl p-6 shadow-lg"
-  >
-    {title && <h3 className="text-lg font-semibold text-slate-800 mb-4">{title}</h3>}
+    className="bg-white/70 backdrop-blur-md border border-white/50 rounded-2xl p-6 shadow-lg">
+    {title && (
+      <h3 className="text-lg font-semibold text-slate-800 mb-4">{title}</h3>
+    )}
     {children}
   </motion.div>
 );
@@ -62,14 +65,17 @@ const GlassCard = ({ title, children, delay = 0 }) => (
 const CustomBarChart = ({ data, dataKey, xAxisKey, color, height = 250 }) => {
   if (!data || data.length === 0) {
     return (
-      <div className={`h-[${height}px] flex items-center justify-center text-slate-400`}>
+      <div
+        className={`h-[${height}px] flex items-center justify-center text-slate-400`}>
         No data available
       </div>
     );
   }
   return (
     <ResponsiveContainer width="100%" height={height}>
-      <BarChart data={data} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+      <BarChart
+        data={data}
+        margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
         <XAxis
           dataKey={xAxisKey}
@@ -99,7 +105,8 @@ const CustomBarChart = ({ data, dataKey, xAxisKey, color, height = 250 }) => {
 const CustomPieChart = ({ data, nameKey, valueKey, colors, height = 200 }) => {
   if (!data || data.length === 0) {
     return (
-      <div className={`h-[${height}px] flex items-center justify-center text-slate-400`}>
+      <div
+        className={`h-[${height}px] flex items-center justify-center text-slate-400`}>
         No data available
       </div>
     );
@@ -114,9 +121,10 @@ const CustomPieChart = ({ data, nameKey, valueKey, colors, height = 200 }) => {
           cx="50%"
           cy="50%"
           outerRadius={70}
-          label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-          labelLine={false}
-        >
+          label={({ name, percent }) =>
+            `${name} ${(percent * 100).toFixed(0)}%`
+          }
+          labelLine={false}>
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
           ))}
@@ -150,20 +158,18 @@ const TopList = ({ title, data, type }) => {
         {data.slice(0, 5).map((item, i) => (
           <div
             key={item.id || i}
-            className="flex items-center justify-between p-3 bg-white/50 rounded-xl hover:bg-white/80 transition cursor-pointer"
-          >
+            className="flex items-center justify-between p-3 bg-white/50 rounded-xl hover:bg-white/80 transition cursor-pointer">
             <div className="flex items-center gap-3">
               <span
                 className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
                   i === 0
                     ? "bg-amber-100 text-amber-600"
                     : i === 1
-                    ? "bg-slate-100 text-slate-600"
-                    : i === 2
-                    ? "bg-orange-100 text-orange-600"
-                    : "bg-slate-50 text-slate-400"
-                }`}
-              >
+                      ? "bg-slate-100 text-slate-600"
+                      : i === 2
+                        ? "bg-orange-100 text-orange-600"
+                        : "bg-slate-50 text-slate-400"
+                }`}>
                 {i + 1}
               </span>
               <div>
@@ -195,7 +201,7 @@ const TopList = ({ title, data, type }) => {
 };
 
 const InsightsPanel = ({ insights }) => {
-  if (!insights || insights.length === 0) {
+ if (!Array.isArray(insights) || insights.length === 0){
     return null;
   }
 
@@ -203,10 +209,8 @@ const InsightsPanel = ({ insights }) => {
     const lower = text.toLowerCase();
     if (lower.includes("highest") || lower.includes("most")) return "📈";
     if (lower.includes("lowest") || lower.includes("least")) return "📉";
-    if (lower.includes("dominate") || lower.includes("leading"))
-      return "👑";
-    if (lower.includes("growth") || lower.includes("increase"))
-      return "🚀";
+    if (lower.includes("dominate") || lower.includes("leading")) return "👑";
+    if (lower.includes("growth") || lower.includes("increase")) return "🚀";
     if (lower.includes("closed") || lower.includes("not available"))
       return "⏰";
     return "💡";
@@ -217,8 +221,7 @@ const InsightsPanel = ({ insights }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.9 }}
-      className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/50 rounded-2xl p-6 shadow-lg"
-    >
+      className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/50 rounded-2xl p-6 shadow-lg">
       <div className="flex items-center gap-3 mb-4">
         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
           <span className="text-xl">💡</span>
@@ -232,8 +235,7 @@ const InsightsPanel = ({ insights }) => {
         {insights.map((insight, i) => (
           <div
             key={i}
-            className="flex items-start gap-3 p-3 bg-white/60 rounded-xl hover:bg-white transition cursor-pointer"
-          >
+            className="flex items-start gap-3 p-3 bg-white/60 rounded-xl hover:bg-white transition cursor-pointer">
             <span className="text-lg mt-0.5">{getIcon(insight)}</span>
             <p className="text-sm text-slate-700 font-medium">{insight}</p>
           </div>
@@ -263,7 +265,7 @@ const Dashboard = () => {
         setOverview(overviewData);
         setDoctors(doctorsData);
         setPharmacies(pharmaciesData);
-        setInsights(insightsData);
+        setInsights(insightsData?.insights || []);
       } catch (error) {
         console.error("Failed to fetch analytics:", error);
       } finally {
@@ -275,8 +277,7 @@ const Dashboard = () => {
 
   const availabilityRate = overview
     ? (
-        ((overview.availableDoctors || 0) /
-          (overview.totalDoctors || 1)) *
+        ((overview.availableDoctors || 0) / (overview.totalDoctors || 1)) *
         100
       ).toFixed(1)
     : null;
@@ -284,28 +285,33 @@ const Dashboard = () => {
   const estimatedRevenue = overview?.estimatedRevenue || null;
 
   const specData =
-    doctors?.specializations?.map((s) => ({
+    doctors?.bySpecialization?.map((s) => ({
       name: s.name.length > 12 ? s.name.substring(0, 12) + "..." : s.name,
       count: s.count,
       avgFee: s.avgFee,
     })) || [];
 
   const cityDocData =
-    doctors?.byCity?.map((c) => ({
-      city: c.city.length > 10 ? c.city.substring(0, 10) + "..." : c.city,
-      count: c.count,
-    })) || [];
-
+    doctors?.byCity?.map((c) => {
+      const city = c.name || "Unknown";
+      return {
+        city: city.length > 10 ? city.substring(0, 10) + "..." : city,
+        count: c.count,
+      };
+    }) || [];
   const cityPharmacyData =
-    pharmacies?.byCity?.map((c) => ({
-      city: c.city.length > 10 ? c.city.substring(0, 10) + "..." : c.city,
-      count: c.count,
-    })) || [];
+    pharmacies?.byCity?.map((c) => {
+      const city = c.name || "Unknown";
+      return {
+        city: city.length > 10 ? city.substring(0, 10) + "..." : city,
+        count: c.count,
+      };
+    }) || [];
 
   const pieData = pharmacies
     ? [
-        { name: "Open", value: pharmacies.openCount || 0 },
-        { name: "Closed", value: pharmacies.closedCount || 0 },
+        { name: "Open", value: pharmacies.openVsClosed.open },
+        { name: "Closed", value: pharmacies.openVsClosed.closed },
       ]
     : [];
 
@@ -331,8 +337,7 @@ const Dashboard = () => {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
-        >
+          className="mb-8">
           <h1 className="text-3xl font-bold text-slate-800">
             Analytics Dashboard
           </h1>
@@ -473,6 +478,31 @@ const Dashboard = () => {
             />
           </GlassCard>
         </div>
+        {/* Charts Row 4 - Growth */}
+        <div className="grid grid-cols-1 gap-6 mb-6">
+          <GlassCard title="Doctor Growth (Monthly)">
+            <CustomBarChart
+              data={doctors?.growth?.map((g) => ({
+                name: `M${g._id}`,
+                count: g.count,
+              }))}
+              dataKey="count"
+              xAxisKey="name"
+              color="#22c55e"
+            />
+          </GlassCard>
+        </div>
+        <GlassCard title="Demand vs Supply (Specializations)">
+  <CustomBarChart
+    data={doctors?.demandVsSupply?.map((d) => ({
+      name: d.specialization,
+      count: d.shortage,
+    }))}
+    dataKey="count"
+    xAxisKey="name"
+    color="#ef4444"
+  />
+</GlassCard>
 
         {/* Insights Panel */}
         <div className="mb-6">
